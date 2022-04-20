@@ -1,7 +1,7 @@
-name: Actions Test on Rails
+name: Rspecでのユニットテスト
 on: [push]
 jobs:
-  run:
+  rpsec:
     runs-on: ubuntu-latest
 
     services:
@@ -65,5 +65,3 @@ jobs:
         run: bundle exec rails db:setup RAILS_ENV=test
       - name: Run rspec
         run: bundle exec rspec
-      - name: Run rubocop
-        run: bundle exec rubocop
