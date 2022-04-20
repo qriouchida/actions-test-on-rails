@@ -14,7 +14,7 @@ module Api
 
     get 'echo' do
       {
-        ok: 'okokokokokokokokokokokokokokokokokokokokokokokokokokokokokokokokokokokokokokokokokokokokokokokokokokokokokokokok'
+        ok: 'ok'
       }
     end
   end
