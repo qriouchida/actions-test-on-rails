@@ -14,7 +14,8 @@ development:
 
 test:
   <<: *default
-  url: <%= ENV['DATABASE_URL'] %>
+  host: postgres
+  username: postgres
   database: actions-test-on-rails_test
   port: 5432
 
