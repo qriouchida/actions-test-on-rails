@@ -1,5 +1,5 @@
 name: Rspecでのユニットテスト
-on: [push]
+on: [pull_request]
 jobs:
   rpsec:
     runs-on: ubuntu-latest
