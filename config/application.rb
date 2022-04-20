@@ -18,5 +18,14 @@ module ActionsTestOnRails
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+
+    config.enable_dependency_loading = true
+    # config.autoload_paths += %W(#{config.root}/lib)
+    config.i18n.default_locale = :ja
+    # config.paths.add File.join('app', 'grape'), glob: File.join('**', '*.rb')
+    # config.autoload_paths += Dir[Rails.root.join('app', 'grape', '*')]
+    config.generators do |g|
+      g.test_framework :rspec, controller_specs: false
+    end
   end
 end
