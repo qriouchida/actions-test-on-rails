@@ -1,0 +1,35 @@
+version: '3'
+services:
+  actions-test-on-rails:
+    build: .
+    command: bin/rails s -p 3000 -b '0.0.0.0'
+    volumes:
+      - .:/app:cached
+      - bundle:/usr/local/bundle
+    depends_on:
+      - actions-test-db
+    ports:
+      - 3010:3000
+    tty: true
+    stdin_open: true
+    environment:
+      DATABASE_URL: postgres://postgres:@actions-test-db:5432
+    networks:
+      - actions-test-network
+  actions-test-db:
+    image: postgres:11.2-alpine
+    volumes:
+      - database:/var/lib/postgresql/data
+    ports:
+      - 5431:5432
+    networks:
+      - actions-test-network
+    environment:
+      POSTGRES_HOST_AUTH_METHOD: trust
+
+volumes:
+  bundle:
+  database:
+networks:
+  actions-test-network:
+    external: true

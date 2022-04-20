@@ -1,0 +1,22 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  host: localhost
+  port: 5431
+  username: postgres
+  variables:
+    statement_timeout: <%= ENV.fetch("RAILS_STATEMENT_TIMEOUT") { 600000 } %>
+
+development:
+  <<: *default
+  database: actions-test-on-rails_development
+
+test:
+  <<: *default
+  url: <%= ENV['DATABASE_URL'] %>
+  database: actions-test-on-rails_test
+
+production:
+  <<: *default
+  database: actions-test-on-rails_production
