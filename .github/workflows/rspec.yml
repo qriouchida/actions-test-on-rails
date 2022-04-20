@@ -63,3 +63,7 @@ jobs:
           bundle exec rails db:setup RAILS_ENV=test
       - name: Run rspec
         run: bundle exec rspec
+      - name: Simplecov Report
+        uses: aki77/simplecov-report-action@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
