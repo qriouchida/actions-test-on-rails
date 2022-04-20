@@ -13,7 +13,7 @@ module Api
 
     get 'echo' do
       {
-        ok: 'ok'
+        ok: "ok"
       }
     end
   end
