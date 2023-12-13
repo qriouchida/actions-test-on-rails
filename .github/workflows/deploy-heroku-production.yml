@@ -9,42 +9,41 @@ env:
   SLACK_USERNAME: Herokuのデプロイ（本番）
   SLACK_CHANNEL: dev_king-api
 
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    timeout-minutes: 5
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          ref: main
-      - uses: akhileshns/heroku-deploy@v3.12.14
-        with:
-          heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
-          heroku_app_name: sl2-api-production
-          heroku_email: ${{ secrets.HEROKU_EMAIL }}
-      - name: Install Heroku CLI
-        if: ${{ success() }}
-        run: |
-          curl https://cli-assets.heroku.com/install.sh | sh
-      - name: Update Heroku Environments
-        if: ${{ success() }}
-        run: |
-          current_branch="main"
-          current_commit=$(git rev-parse HEAD)
-          current_datetime_jst=$(date '+%Y-%m-%dT%H:%M:%S%:z')
-          heroku config:set CURRENT_BRANCH=$current_branch CURRENT_COMMIT=$current_commit LAST_DEPLOYED_AT="$current_datetime_jst" -a sl2-api-production
-        env:
-          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-      - name: Slack Notification on Success
-        if: ${{ success() }}
-        uses: rtCamp/action-slack-notify@v2
-        env:
-          SLACK_TITLE: Heroku Manual Production Deploy Success
-          SLACK_COLOR: good
-      - name: Slack Notification on Failure
-        if: ${{ failure() }}
-        uses: rtCamp/action-slack-notify@v2
-        env:
-          SLACK_TITLE: Heroku Manual Production Deploy Failure
-          SLACK_COLOR: danger
-
+# jobs:
+#   build:
+#     runs-on: ubuntu-latest
+#     timeout-minutes: 5
+#     steps:
+#       - uses: actions/checkout@v4
+#         with:
+#           ref: main
+#       - uses: akhileshns/heroku-deploy@v3.12.14
+#         with:
+#           heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
+#           heroku_app_name: sl2-api-production
+#           heroku_email: ${{ secrets.HEROKU_EMAIL }}
+#       - name: Install Heroku CLI
+#         if: ${{ success() }}
+#         run: |
+#           curl https://cli-assets.heroku.com/install.sh | sh
+#       - name: Update Heroku Environments
+#         if: ${{ success() }}
+#         run: |
+#           current_branch="main"
+#           current_commit=$(git rev-parse HEAD)
+#           current_datetime_jst=$(date '+%Y-%m-%dT%H:%M:%S%:z')
+#           heroku config:set CURRENT_BRANCH=$current_branch CURRENT_COMMIT=$current_commit LAST_DEPLOYED_AT="$current_datetime_jst" -a sl2-api-production
+#         env:
+#           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+#       - name: Slack Notification on Success
+#         if: ${{ success() }}
+#         uses: rtCamp/action-slack-notify@v2
+#         env:
+#           SLACK_TITLE: Heroku Manual Production Deploy Success
+#           SLACK_COLOR: good
+#       - name: Slack Notification on Failure
+#         if: ${{ failure() }}
+#         uses: rtCamp/action-slack-notify@v2
+#         env:
+#           SLACK_TITLE: Heroku Manual Production Deploy Failure
+#           SLACK_COLOR: danger
